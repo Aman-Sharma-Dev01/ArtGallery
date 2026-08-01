@@ -44,51 +44,49 @@ export const PinterestLayout: React.FC<PinterestLayoutProps> = ({
   };
 
   return (
-    <div className="space-[#17120c] min-h-screen py-6 px-4 sm:px-6 lg:px-8">
-      {/* Board Banner Header */}
-      <div className="max-w-7xl mx-auto mb-8 bg-[#f5f0e3] dark:bg-[#1a1612] p-6 rounded-2xl border border-[#dcd0bc] dark:border-[#2e261e] shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <div className="min-h-screen py-3 px-3 sm:py-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto mb-4 sm:mb-6 bg-[#f5f0e3] dark:bg-[#1a1612] p-4 sm:p-6 rounded-2xl border border-[#dcd0bc] dark:border-[#2e261e] shadow-sm">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center justify-between">
           <div>
-            <div className="flex items-center gap-2 text-[#c5a059] text-xs font-cinzel font-bold tracking-widest uppercase mb-1">
-              <Bookmark className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-[#c5a059] text-[10px] sm:text-xs font-cinzel font-bold tracking-widest uppercase mb-1">
+              <Bookmark className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>SAVED MOODBOARDS & INSPIRATIONS</span>
             </div>
-            <h2 className="font-cinzel text-2xl sm:text-3xl font-bold text-[#3d2b1d] dark:text-[#f3e9d8]">
+            <h2 className="font-cinzel text-xl sm:text-2xl lg:text-3xl font-bold text-[#3d2b1d] dark:text-[#f3e9d8]">
               Saved Collections
             </h2>
-            <p className="font-cormorant italic text-sm text-[#705844] dark:text-[#a89582] mt-1">
+            <p className="hidden sm:block font-cormorant italic text-sm text-[#705844] dark:text-[#a89582] mt-1">
               Organize your digital paintings, charcoal sketches, and color studies into custom moodboards.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowOnlyPinned(!showOnlyPinned)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-cinzel font-bold transition-all ${
+              className={`flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-cinzel font-bold transition-all ${
                 showOnlyPinned
                   ? 'bg-rose-600 text-white shadow-sm'
                   : 'bg-[#eae1ce] dark:bg-[#282018] text-[#523d2b] dark:text-[#d4af37] border border-[#d8c8b0] dark:border-[#382b1f]'
               }`}
             >
               <Pin className="w-3.5 h-3.5 fill-current" />
-              <span>{showOnlyPinned ? 'Showing Pinned Items' : 'Filter Saved Pins'}</span>
+              <span>{showOnlyPinned ? 'Showing Pinned' : 'Filter Saved Pins'}</span>
             </button>
 
             <button
               onClick={() => setIsCreatingBoard(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#3d2b1d] dark:bg-[#d4af37] text-[#f5ebd8] dark:text-[#120e0a] text-xs font-cinzel font-bold shadow-md hover:scale-105 transition-all"
+              className="flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-[#3d2b1d] dark:bg-[#d4af37] text-[#f5ebd8] dark:text-[#120e0a] text-[10px] sm:text-xs font-cinzel font-bold shadow-md hover:scale-105 transition-all"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>New Board</span>
             </button>
           </div>
         </div>
 
-        {/* Board Tabs */}
-        <div className="mt-6 pt-4 border-t border-[#e2d6c3] dark:border-[#2b231b] flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        <div className="mt-4 pt-3 border-t border-[#e2d6c3] dark:border-[#2b231b] flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none snap-x snap-mandatory">
           <button
             onClick={() => setSelectedBoardId('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-cinzel font-semibold whitespace-nowrap transition-all ${
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-cinzel font-semibold whitespace-nowrap transition-all ${
               selectedBoardId === 'all'
                 ? 'bg-[#3d2b1d] text-[#f5ebd8] dark:bg-[#d4af37] dark:text-[#17110a] shadow-md'
                 : 'bg-[#ebe2d0] dark:bg-[#231d17] text-[#614b38] dark:text-[#ba9d84] hover:bg-[#dfd3bc]'
@@ -99,7 +97,7 @@ export const PinterestLayout: React.FC<PinterestLayoutProps> = ({
 
           <button
             onClick={() => setSelectedBoardId('pinned')}
-            className={`px-4 py-2 rounded-xl text-xs font-cinzel font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-cinzel font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedBoardId === 'pinned'
                 ? 'bg-rose-600 text-white shadow-md'
                 : 'bg-[#ebe2d0] dark:bg-[#231d17] text-[#614b38] dark:text-[#ba9d84] hover:bg-[#dfd3bc]'
@@ -115,7 +113,7 @@ export const PinterestLayout: React.FC<PinterestLayoutProps> = ({
               <button
                 key={board.id}
                 onClick={() => setSelectedBoardId(board.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-cinzel font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[10px] sm:text-xs font-cinzel font-semibold whitespace-nowrap transition-all flex items-center gap-2 ${
                   selectedBoardId === board.id
                     ? 'bg-[#3d2b1d] text-[#f5ebd8] dark:bg-[#d4af37] dark:text-[#17110a] shadow-md'
                     : 'bg-[#ebe2d0] dark:bg-[#231d17] text-[#614b38] dark:text-[#ba9d84] hover:bg-[#dfd3bc]'
@@ -213,7 +211,7 @@ export const PinterestLayout: React.FC<PinterestLayoutProps> = ({
           </p>
         </div>
       ) : (
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4 max-w-7xl mx-auto">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4 max-w-7xl mx-auto">
           {filteredArtworks.map((art) => (
             <motion.div
               key={art.id}
@@ -221,7 +219,7 @@ export const PinterestLayout: React.FC<PinterestLayoutProps> = ({
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="break-inside-avoid group relative bg-[#f5f0e3] dark:bg-[#1a1612] rounded-2xl overflow-hidden border border-[#dcd0bc] dark:border-[#2e261e] shadow-md hover:shadow-2xl transition-all duration-300"
+              className="mb-3 break-inside-avoid group relative bg-[#f5f0e3] dark:bg-[#1a1612] rounded-2xl overflow-hidden border border-[#dcd0bc] dark:border-[#2e261e] shadow-md hover:shadow-2xl transition-all duration-300"
             >
               {/* Image Container */}
               <div 

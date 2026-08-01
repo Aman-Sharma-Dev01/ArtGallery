@@ -5,7 +5,6 @@ import { PinterestLayout } from './components/PinterestLayout';
 import { Virtual3DExhibition } from './components/Virtual3DExhibition';
 import { CatalogListView } from './components/CatalogListView';
 import { ArtworkDetailModal } from './components/ArtworkDetailModal';
-import { UploadModal } from './components/UploadModal';
 import { Artwork, Board, Category, ViewMode, ExhibitionSettings } from './types';
 import { 
   loadStoredArtworks, 
@@ -15,7 +14,7 @@ import {
   loadExhibitionSettings,
   saveExhibitionSettings 
 } from './utils/storage';
-import { Sparkles, Palette, Filter, Compass, Grid, Pin, Check, Plus } from 'lucide-react';
+import { Sparkles, Palette, Filter, Compass, Grid, Pin } from 'lucide-react';
 
 export default function App() {
   const [artworks, setArtworks] = useState<Artwork[]>(() => loadStoredArtworks());
@@ -31,7 +30,6 @@ export default function App() {
   });
 
   const [inspectedArtwork, setInspectedArtwork] = useState<Artwork | null>(null);
-  const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [is3DImmersiveMode, setIs3DImmersiveMode] = useState(false);
 
   // Sync Dark Mode to HTML document class
@@ -83,11 +81,6 @@ export default function App() {
       }
       return art;
     }));
-  };
-
-  // Add New Artwork
-  const handleAddArtwork = (newArt: Artwork) => {
-    setArtworks(prev => [newArt, ...prev]);
   };
 
   // Update Artwork
@@ -158,7 +151,6 @@ export default function App() {
           onSearchChange={setSearchQuery}
           isDarkMode={isDarkMode}
           onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-          onOpenUpload={() => setIsUploadOpen(true)}
           totalArtworksCount={artworks.length}
           pinnedCount={pinnedCount}
         />
@@ -311,13 +303,7 @@ export default function App() {
         onUpdateArtwork={handleUpdateArtwork}
       />
 
-      <UploadModal
-        isOpen={isUploadOpen}
-        onClose={() => setIsUploadOpen(false)}
-        existingArtworks={artworks}
-        boards={boards}
-        onAddArtwork={handleAddArtwork}
-      />
+
     </div>
   );
 }
