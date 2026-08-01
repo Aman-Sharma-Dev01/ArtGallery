@@ -1,0 +1,6 @@
+{
+  "name": "Aanchal's Art Gallery",
+  "description": "Personal digital art gallery and sketch catalog featuring a vintage museum aesthetic, Pinterest-style masonry grid, 3D virtual exhibition room, and high-res serial numbered art management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
