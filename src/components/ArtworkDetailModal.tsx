@@ -45,12 +45,18 @@ export const ArtworkDetailModal: React.FC<ArtworkDetailModalProps> = ({
   const [zoomLevel, setZoomLevel] = useState(1);
 
   const handleSave = () => {
+    const normalizedSerial = editedSerial.replace(/\.[^/.]+$/, '').replace(/\D/g, '').padStart(3, '0');
+    const imageFilename = `${normalizedSerial}.jpg`;
+    const imagePath = `/gallery-images/${imageFilename}`;
+
     onUpdateArtwork({
       ...artwork,
       title: editedTitle,
       category: editedCategory,
-      serialNumber: editedSerial,
-      filename: `${editedSerial}.jpg`,
+      serialNumber: normalizedSerial,
+      filename: imageFilename,
+      imageUrl: imagePath,
+      highResUrl: imagePath,
       description: editedDesc,
       medium: editedMedium,
       frameType: editedFrame

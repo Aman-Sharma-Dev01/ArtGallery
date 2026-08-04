@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Header } from './components/Header';
 import { ArtworkCard } from './components/ArtworkCard';
 import { PinterestLayout } from './components/PinterestLayout';
@@ -12,7 +12,8 @@ import {
   loadStoredBoards, 
   saveBoardsToStorage,
   loadExhibitionSettings,
-  saveExhibitionSettings 
+  saveExhibitionSettings,
+  syncArtworksWithPublicGallery
 } from './utils/storage';
 import { Sparkles, Palette, Filter, Compass, Grid, Pin } from 'lucide-react';
 
@@ -31,6 +32,11 @@ export default function App() {
 
   const [inspectedArtwork, setInspectedArtwork] = useState<Artwork | null>(null);
   const [is3DImmersiveMode, setIs3DImmersiveMode] = useState(false);
+  const artworksRef = useRef(artworks);
+
+  useEffect(() => {
+    artworksRef.current = artworks;
+  }, [artworks]);
 
   // Sync Dark Mode to HTML document class
   useEffect(() => {
@@ -47,6 +53,40 @@ export default function App() {
   useEffect(() => {
     saveArtworksToStorage(artworks);
   }, [artworks]);
+
+  // Discover newly copied serial images in public/gallery-images (e.g. 057.jpg)
+  useEffect(() => {
+    let isMounted = true;
+    let isSyncing = false;
+
+    const syncPublicImages = async () => {
+      if (isSyncing) return;
+      isSyncing = true;
+
+      const currentArtworks = artworksRef.current;
+      const synced = await syncArtworksWithPublicGallery(currentArtworks);
+      isSyncing = false;
+
+      if (!isMounted || synced.length === currentArtworks.length) return;
+      setArtworks(synced);
+    };
+
+    syncPublicImages();
+
+    const intervalId = window.setInterval(syncPublicImages, 8000);
+    const visibilityHandler = () => {
+      if (!document.hidden) {
+        syncPublicImages();
+      }
+    };
+    document.addEventListener('visibilitychange', visibilityHandler);
+
+    return () => {
+      isMounted = false;
+      window.clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', visibilityHandler);
+    };
+  }, []);
 
   // Persist boards
   useEffect(() => {
