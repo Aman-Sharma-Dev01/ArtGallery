@@ -51,7 +51,7 @@ const mergeArtworksWithDiscoveredGallery = (artworks: Artwork[]): Artwork[] => {
   });
 
   return Array.from(new Map(merged.map((artwork) => [artwork.serialNumber, artwork])).values())
-    .sort((a, b) => parseInt(a.serialNumber, 10) - parseInt(b.serialNumber, 10));
+    .sort((a, b) => parseInt(b.serialNumber, 10) - parseInt(a.serialNumber, 10));
 };
 
 export const loadStoredArtworks = (): Artwork[] => {
@@ -242,5 +242,5 @@ export const syncArtworksWithPublicGallery = async (artworks: Artwork[]): Promis
     return cleanedArtworks;
   }
 
-  return [...cleanedArtworks, ...discovered].sort((a, b) => getSerialNumberValue(a.serialNumber) - getSerialNumberValue(b.serialNumber));
+  return [...cleanedArtworks, ...discovered].sort((a, b) => getSerialNumberValue(b.serialNumber) - getSerialNumberValue(a.serialNumber));
 };

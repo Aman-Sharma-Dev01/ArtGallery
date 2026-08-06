@@ -29,7 +29,7 @@ const getDiscoveredGalleryImages = (): DiscoveredGalleryImage[] => {
       };
     })
     .filter((image): image is DiscoveredGalleryImage => Boolean(image))
-    .sort((a, b) => parseInt(a.serialNumber, 10) - parseInt(b.serialNumber, 10));
+    .sort((a, b) => parseInt(b.serialNumber, 10) - parseInt(a.serialNumber, 10));
 };
 
 const createArtworkFromIndex = (index: number, serialNumber: string, filename: string, imageUrl: string): Artwork => {
